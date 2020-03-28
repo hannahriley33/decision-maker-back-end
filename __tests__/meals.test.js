@@ -20,68 +20,34 @@ describe('meal routes', () => {
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
-          name: 'Burnside Bar',
-          location: {
-            streetAddress: '1823 SE Burnside',
-            quadrant: 'SE'
-          },
-          when: {
-            monday: {
-              start: 2,
-              end: 8
-            }, 
-            tuesday: {
-              start: 2,
-              end: 8
-            }, 
-            wednesday: {
-              start: 2,
-              end: 8
-            }, 
-            thursday: {
-              start: 2,
-              end: 8
-            }, 
-            friday: {
-              start: 2,
-              end: 8
-            }, 
-            saturday: {
-              start: 2,
-              end: 8
-            }, 
-            sunday: {
-              start: 2,
-              end: 8
-            }
-          },
-          foodDiscounts: true,
-          drinkDiscounts: true,
-          outdoorPatio: false,
-          highlights: 'Great moscow mule and $5 apps!',
+          name: 'Spaghetti and Meatballs',
+          type: 'dinner entree',
+          cookingMethod: 'stovetop',
+          recipe: 'www.spaghetti.com',
+          season: 'fall, winter, spring',
+          proteinType: 'beef',
           __v: 0
         });
       });
   });
 
-  it('gets a happyhour by id', async() => {
-    const happyhour = await getHappyHour();
-
+  it('gets a meal by id', async() => {
+    const meal = await getMeal();
 
     return request(app)
-      .get(`/api/v1/happyhours/${happyhour._id}`)
+      .get(`/api/v1/meals/${meal._id}`)
       .then(res => {
-        expect(res.body).toEqual(happyhour);
+        expect(res.body).toEqual(meal);
       });
   });
   
-  it('gets all happyhours', async() => {
-    const happyhours = await getHappyHours();
+  it('gets all meals', async() => {
+    const meals = await getMeals();
 
     return request(app)
-      .get('/api/v1/happyhours')
+      .get('/api/v1/meals')
       .then(res => {
-        expect(res.body).toEqual(happyhours);
+        expect(res.body).toEqual(meals);
       });
   });
 });
