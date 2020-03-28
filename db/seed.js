@@ -1,7 +1,8 @@
 const HappyHour = require('../lib/models/HappyHour');
+const Meal = require('../lib/Models/Meal');
 const chance = require('chance').Chance();
 
-module.exports = async({ happyhoursToCreate = 20 } = {}) => {
+module.exports = async({ happyhoursToCreate = 20, mealsToCreate = 10 } = {}) => {
 
   const happyhours = await HappyHour.create([...Array(happyhoursToCreate)].map(() => ({
     name: chance.name(),
@@ -44,4 +45,14 @@ module.exports = async({ happyhoursToCreate = 20 } = {}) => {
     outdoorPatio: chance.bool(),
     highlights: chance.sentence()
   })));
+
+  const meals = await Meal.create([...Array(mealsToCreate)].map(() => ({
+    name: chance.name(),
+    type: chance.animal(),
+    cookingMethod: chance.word(),
+    recipe: chance.word(),
+    season: chance.word(),
+    proteinType: chance.word()
+  })));
+
 };
