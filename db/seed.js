@@ -1,8 +1,9 @@
 const HappyHour = require('../lib/models/HappyHour');
 const Meal = require('../lib/Models/Meal');
+const Boardgame = require('../lib/Models/Boardgame');
 const chance = require('chance').Chance();
 
-module.exports = async({ happyhoursToCreate = 20, mealsToCreate = 10 } = {}) => {
+module.exports = async({ happyhoursToCreate = 20, mealsToCreate = 10, boardgamesToCreate = 5  } = {}) => {
 
   const happyhours = await HappyHour.create([...Array(happyhoursToCreate)].map(() => ({
     name: chance.name(),
@@ -55,4 +56,13 @@ module.exports = async({ happyhoursToCreate = 20, mealsToCreate = 10 } = {}) => 
     proteinType: chance.word()
   })));
 
+  const boardgames = await Boardgame.create([
+    ...Array(boardgamesToCreate)].map(() => ({
+    name: chance.name(),
+    duration: chance.string(),
+    minPlayers: chance.integer(),
+    maxPlayers: chance.integer(),
+    notes: chance.sentence()
+  })));
+  
 };
