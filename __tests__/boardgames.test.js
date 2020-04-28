@@ -49,4 +49,27 @@ describe('boardgame routes', () => {
         expect(res.body).toEqual(boardgames);
       });
   });
+
+  it('updates a boardgame by id', async() => {
+    const boardgame = await getBoardgame();
+    return request(app)
+      .patch(`/api/v1/boardgames/${boardgame._id}`)
+      .send({ notes: 'new note' })
+      .then(res => {
+        expect(res.body).toEqual({
+          ...boardgame,
+          notes: 'new note'
+        });
+      });
+  });
+
+  it('deletes a boardgame by id', async() => {
+    const boardgame = await getBoardgame();
+
+    return request(app)
+      .delete(`/api/v1/boardgames/${boardgame._id}`)
+      .then(res => {
+        expect(res.body).toEqual(boardgame);
+      });
+  });
 });
