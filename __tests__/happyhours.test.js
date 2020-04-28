@@ -118,4 +118,29 @@ describe('happyhour routes', () => {
         expect(res.body).toEqual(happyhours);
       });
   });
+
+  it('updates a happyhour by id', async() => {
+    const happyhour = await getHappyHour();
+    return request(app)
+      .patch(`/api/v1/happyhours/${happyhour._id}`)
+      .send({ highlights: 'new food specials!' })
+      .then(res => {
+        expect(res.body).toEqual({
+          ...happyhour,
+          highlights: 'new food specials!'
+        });
+      });
+  });
+
+  it('deletes a happyhour by id', async() => {
+    const happyhour = await getHappyHour();
+
+    return request(app)
+      .delete(`/api/v1/happyhours/${happyhour._id}`)
+      .then(res => {
+        expect(res.body).toEqual(happyhour);
+      });
+  });
+
+
 });
