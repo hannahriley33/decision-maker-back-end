@@ -50,4 +50,28 @@ describe('meal routes', () => {
         expect(res.body).toEqual(meals);
       });
   });
+
+  it('updates a meal by id', async() => {
+    const meal = await getMeal();
+    return request(app)
+      .patch(`/api/v1/meals/${meal._id}`)
+      .send({ type: 'appetizer' })
+      .then(res => {
+        expect(res.body).toEqual({
+          ...meal,
+          type: 'appetizer'
+        });
+      });
+  });
+
+  it('deletes a meal by id', async() => {
+    const meal = await getMeal();
+
+    return request(app)
+      .delete(`/api/v1/meals/${meal._id}`)
+      .then(res => {
+        expect(res.body).toEqual(meal);
+      });
+  });
+
 });
